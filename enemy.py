@@ -69,7 +69,11 @@ class Enemy(pygame.sprite.Sprite):
         elif self.attackPattern == "miniBoss":
             self.rect.centerx = randint(200, self.screenWidth - 200)
             self.rect.centery = -100
-
+        elif self.attackPattern == "dive":
+            # nothing different from defaults
+        else:
+            raise pygame.error("Unsupported attackPattern")
+            
     def shoot(self):
         '''
         Only works for Dive attack pattern because of shootY
