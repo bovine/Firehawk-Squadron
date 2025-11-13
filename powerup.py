@@ -2,7 +2,10 @@ import pygame
 from os import path
 
 class Powerup(pygame.sprite.Sprite):
-    def __init__(self, screenWidth, screenHeight, x, y, powerupType): # type - shield, missle
+    def __init__(self, screenWidth, screenHeight, x, y, powerupType):
+        '''
+        powerupType: shield, missle
+        '''
         pygame.sprite.Sprite.__init__(self)
 
         self.screenWidth = screenWidth
@@ -18,6 +21,8 @@ class Powerup(pygame.sprite.Sprite):
         	self.image = pygame.image.load('Assets/Images/Powerups/shield.png').convert_alpha()
         elif self.powerupType == "missle":
         	self.image = pygame.image.load('Assets/Images/Powerups/missle.png').convert_alpha()
+        else:
+            raise pygame.error("Unsupported powerupType")
         self.rect = self.image.get_rect()
         self.rect.center = (self.x,self.y)
 

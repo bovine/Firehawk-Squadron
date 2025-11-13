@@ -5,8 +5,10 @@ from random import randint
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, screenWidth, screenHeight, startX, startY, shipType, attackPattern, audioLevel): 
-        # shipType = one, owo, rockDropper, miniBoss
-        # attackPattern = dive, position of the rockDropper, strafe
+        '''
+        shipType: one, two, miniBoss
+        attackPattern: dive, miniBoss, strafe
+        '''
         pygame.sprite.Sprite.__init__(self)
         self.screenWidth = screenWidth
         self.screenHeight = screenHeight
@@ -41,14 +43,12 @@ class Enemy(pygame.sprite.Sprite):
             self.image = pygame.image.load('Assets/Images/Enemies/Enemy1.png').convert_alpha()
         elif self.shipType == 'two':
             self.image = pygame.image.load('Assets/Images/Enemies/Enemy2.png').convert_alpha()
-        elif self.shipType == 'rockDropper':
-            self.image = pygame.image.load('Assets/Images/Enemies/RockDropper.png').convert_alpha()
-            self.hitpoints = 4
-            self.score = 40
         elif self.shipType == 'miniBoss':
             self.image = pygame.image.load('Assets/Images/Enemies/MiniBoss.png').convert_alpha()
             self.hitpoints = 20
             self.score = 100
+        else:
+            raise pygame.error("Unsupported shipType")
         self.rect = self.image.get_rect()
         self.rect.centerx = self.startx
         self.rect.centery = self.starty
@@ -65,8 +65,16 @@ class Enemy(pygame.sprite.Sprite):
         elif self.attackPattern == "miniBoss":
             self.rect.centerx = randint(200, self.screenWidth - 200)
             self.rect.centery = -100
-
-    def shoot(self): # Only works for Dive attack pattern because of shootY
+        elif self.attackPattern == "dive":
+            # nothing different from defaults
+            ...
+        else:
+            raise pygame.error("Unsupported attackPattern")
+            
+    def shoot(self):
+        '''
+        Only works for Dive attack pattern because of shootY
+        '''
         if self.ready and self.rect.centery >= self.shootY:
             self.laserSound.play()
             laser = Laser(self.screenWidth, self.screenHeight, False, 3, self.rect.centerx, self.rect.bottom + 20)
@@ -74,7 +82,10 @@ class Enemy(pygame.sprite.Sprite):
             self.lastShot = pygame.time.get_ticks()
             self.ready = False
 
-    def rechargeLaser(self): # Checks to see if enough time has passed to fire again.
+    def rechargeLaser(self):
+        '''
+        Checks to see if enough time has passed to fire again.
+        '''
         if not self.ready:
             currentTime = pygame.time.get_ticks()
             if currentTime - self.lastShot >= self.shootDelay:

@@ -292,17 +292,12 @@ def readHighScores():
 	try:
 		file = open('Saves/HighScores.txt', 'r') # Checks for the file in read mode
 	except FileNotFoundError:
-		file = open('Saves/HighScores.txt', 'w') # If the file is not found: create file
-		file.close()
-		file = open('Saves/HighScores.txt', 'r') # Then read file
-	text = file.readlines()
-	i = 0
-	while i <= len(text) -1:
-		score = int(text[i])
+		return highScores
+	for line in file.readlines():
+		score = int(line)
 		highScores.append(score)
-		if len(highScores) > 10:
-			highScores.pop(-1)
-		i += 1
+		if len(highScores) >= 10:
+			break
 	file.close()
 	return highScores
 
@@ -348,10 +343,7 @@ def getAudioLevel():
 	try:
 		optionsFile = open('Options/Options.txt', 'r') # Checks for the file in read mode
 	except FileNotFoundError:
-		optionsFile = open('Options/Options.txt', 'w')
-		optionsFile.write(str(.5))
-		optionsFile.close()
-		optionsFile = open('Options/Options.txt', 'r')
+		return(0.5)
 	text = optionsFile.readlines()
 	audioLevel = text[0]
 	audioLevel = float(audioLevel)

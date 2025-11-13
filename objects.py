@@ -29,5 +29,6 @@ class Star(pygame.sprite.Sprite):
     def update(self):
     	self.rect.centery = self.rect.centery + self.speed
     	if self.rect.centery > self.screenHeight + 50:
+            # reposition star to top when it moves past bottom of screen.
     		self.rect.centery = -50
     		self.rect.centerx = randint(50, self.screenWidth - 50)

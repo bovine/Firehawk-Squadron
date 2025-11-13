@@ -2,10 +2,15 @@ import pygame
 from os import path
 
 class Laser(pygame.sprite.Sprite):
-    def __init__(self, screenWidth, screenHeight, playerOrEnemy, player, x, y): #bounds is screen size, playerOrEnemy is booleen.
+    def __init__(self, screenWidth, screenHeight, playerOrEnemy, player, x, y):
+        '''
+        bounds: screen size
+        playerOrEnemy: booleen. True for player, false for enemy
+        player: Determines player 1 or player 2. Valid numbers are 1 and 2
+        '''
         pygame.sprite.Sprite.__init__(self)
-        self.playerOrEnemy = playerOrEnemy # True for player, false for enemy
-        self.player = player # Determines player 1 from player 2. Valid numbers are 1 and 2
+        self.playerOrEnemy = playerOrEnemy
+        self.player = player
         if self.playerOrEnemy:
             if self.player == 1:
                 self.image = pygame.image.load("Assets/Images/Effects/laserBlue.png").convert_alpha() #loads the sprite file
@@ -16,7 +21,7 @@ class Laser(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(5,28))
         self.rect = self.image.get_rect() # Gets the rectangle around the sprite
 
-        if self.playerOrEnemy: # Controls the direstion of the laser.
+        if self.playerOrEnemy: # Controls the direction of the laser.
             self.speedy = -12
         else:
             self.speedy = 12
