@@ -67,6 +67,7 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.centery = -100
         elif self.attackPattern == "dive":
             # nothing different from defaults
+            ...
         else:
             raise pygame.error("Unsupported attackPattern")
             
