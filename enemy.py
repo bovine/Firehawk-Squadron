@@ -5,8 +5,10 @@ from random import randint
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, screenWidth, screenHeight, startX, startY, shipType, attackPattern, audioLevel): 
-        # shipType = one, two, rockDropper, miniBoss
-        # attackPattern = dive, position of the rockDropper, strafe
+        '''
+        shipType: one, two, rockDropper, miniBoss
+        attackPattern: dive, position of the rockDropper, strafe
+        '''
         pygame.sprite.Sprite.__init__(self)
         self.screenWidth = screenWidth
         self.screenHeight = screenHeight
@@ -68,7 +70,10 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.centerx = randint(200, self.screenWidth - 200)
             self.rect.centery = -100
 
-    def shoot(self): # Only works for Dive attack pattern because of shootY
+    def shoot(self):
+        '''
+        Only works for Dive attack pattern because of shootY
+        '''
         if self.ready and self.rect.centery >= self.shootY:
             self.laserSound.play()
             laser = Laser(self.screenWidth, self.screenHeight, False, 3, self.rect.centerx, self.rect.bottom + 20)
@@ -76,7 +81,10 @@ class Enemy(pygame.sprite.Sprite):
             self.lastShot = pygame.time.get_ticks()
             self.ready = False
 
-    def rechargeLaser(self): # Checks to see if enough time has passed to fire again.
+    def rechargeLaser(self):
+        '''
+        Checks to see if enough time has passed to fire again.
+        '''
         if not self.ready:
             currentTime = pygame.time.get_ticks()
             if currentTime - self.lastShot >= self.shootDelay:
