@@ -6,7 +6,7 @@ from random import randint
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, screenWidth, screenHeight, startX, startY, shipType, attackPattern, audioLevel): 
         '''
-        shipType: one, two, rockDropper, miniBoss
+        shipType: one, two, miniBoss
         attackPattern: dive, miniBoss, strafe
         '''
         pygame.sprite.Sprite.__init__(self)
@@ -43,10 +43,6 @@ class Enemy(pygame.sprite.Sprite):
             self.image = pygame.image.load('Assets/Images/Enemies/Enemy1.png').convert_alpha()
         elif self.shipType == 'two':
             self.image = pygame.image.load('Assets/Images/Enemies/Enemy2.png').convert_alpha()
-        elif self.shipType == 'rockDropper':
-            self.image = pygame.image.load('Assets/Images/Enemies/RockDropper.png').convert_alpha()
-            self.hitpoints = 4
-            self.score = 40
         elif self.shipType == 'miniBoss':
             self.image = pygame.image.load('Assets/Images/Enemies/MiniBoss.png').convert_alpha()
             self.hitpoints = 20
